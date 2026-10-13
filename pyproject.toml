@@ -1,0 +1,28 @@
+[project]
+name = "secvarta"
+version = "0.1.0"
+description = "An extensible cybersecurity intelligence aggregator that collects security news from RSS/Atom feeds, extracts CVE identifiers, and stores normalized articles in SQLite."
+readme = "README.md"
+authors = [
+    { name = "Sagnik Ghosh" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "feedparser>=6.0.14",
+    "httpx>=0.28.1",
+    "python-dotenv>=1.2.4",
+    "sqlalchemy>=2.1.4",
+]
+
+[project.scripts]
+secvarta = "secvarta.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.13.0,<0.14.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.17.0",
+]
