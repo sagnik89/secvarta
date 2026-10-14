@@ -9,6 +9,7 @@ from secvarta.database.repository import (
     search_articles,
 )
 from secvarta.ingestion.service import main as ingest_main
+from secvarta.notifications.digest import run_daily_digest
 
 CVE_PATTERN = re.compile(r"^CVE-\d{4}-\d{4,}$", re.IGNORECASE)
 
@@ -50,6 +51,11 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser(
         "ingest",
         help="Fetch configured feeds and store articles.",
+    )
+
+    subparsers.add_parser(
+        "daily-digest",
+        help="Ingest feeds and send today's top 10 articles to Discord.",
     )
 
     articles_parser = subparsers.add_parser(
@@ -183,6 +189,9 @@ def main() -> int:
         if args.command == "ingest":
             ingest_main()
 
+        elif args.command == "daily-digest":
+            run_daily_digest()
+
         elif args.command == "articles":
             handle_articles(args)
 
@@ -194,7 +203,7 @@ def main() -> int:
 
         return 0
 
-    except ValueError as exc:
+    except (ValueError, RuntimeError) as exc:
         print(f"Error: {exc}", file=sys.stderr)
         return 2
 
