@@ -77,8 +77,12 @@ Add your discord webhook url
 
 Add the database url
 
+### 4. Add your RSS feeds to `ingestion/urls.py`
 
-### 3. Run SecVarta
+In the ingestion module of secvarta in `urls.py`, Add your rss feeds in the array provided in the form of a string. 
+
+
+### 5. Run SecVarta
 
 Run the CLI through `uv`:
 
